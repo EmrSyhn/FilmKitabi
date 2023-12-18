@@ -18,23 +18,25 @@ struct FilmListeView: View {
     
     var body: some View {
         NavigationView {
-            
-            TextField("Aranacak Film",text: $aranacakFilm) {
-                self.filmListeViewModel.filmAramasiYap(filmIsmi: aranacakFilm)
-            }
-            
-            List(filmListeViewModel.filmler,id: \.film.imdbID){
-                film in
-                HStack {
-                    OzelImage(url: film.poster)
-                    VStack (alignment:.leading) {
-                        Text(film.title)
-                            .font(.title3)
-                        Text(film.year)
-                            .foregroundStyle(.opacity(0.6))
+            VStack {
+                TextField("Aranacak Film",text: $aranacakFilm) {
+                    self.filmListeViewModel.filmAramasiYap(filmIsmi: aranacakFilm)
+                }.padding().textFieldStyle(.roundedBorder)
+                
+                List(filmListeViewModel.filmler,id: \.film.imdbID){
+                    film in
+                    HStack {
+                        OzelImage(url: film.poster)
+                        VStack (alignment:.leading) {
+                            Text(film.title)
+                                .font(.title3)
+                            Text(film.year)
+                                .foregroundStyle(.opacity(0.6))
+                        }
                     }
                 }
-            }.navigationTitle("Film Kitabi")
+            }.navigationTitle("Film Kitabı")
+           
         }
     }
 }
