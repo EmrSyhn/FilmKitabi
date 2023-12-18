@@ -25,16 +25,20 @@ struct FilmListeView: View {
                 
                 List(filmListeViewModel.filmler,id: \.film.imdbID){
                     film in
-                    HStack {
-                        OzelImage(url: film.poster)
-                        VStack (alignment:.leading) {
-                            Text(film.title)
-                                .font(.title3)
-                            Text(film.year)
-                                .foregroundStyle(.opacity(0.6))
-                        }
                     
-                }
+                    NavigationLink {
+                        DetayView(imdbId: film.imdbId)
+                    } label: {
+                        HStack {
+                            OzelImage(url: film.poster)
+                            VStack (alignment:.leading) {
+                                Text(film.title)
+                                    .font(.title3)
+                                Text(film.year)
+                                    .foregroundStyle(.opacity(0.6))
+                            }   
+                    }
+                    }
             }.navigationTitle("Film Kitabı")
             
         }
