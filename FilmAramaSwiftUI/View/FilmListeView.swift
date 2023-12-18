@@ -20,7 +20,7 @@ struct FilmListeView: View {
         NavigationView {
             VStack {
                 TextField("Aranacak Film",text: $aranacakFilm) {
-                    self.filmListeViewModel.filmAramasiYap(filmIsmi: aranacakFilm)
+                    self.filmListeViewModel.filmAramasiYap(filmIsmi: aranacakFilm.trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? aranacakFilm)
                 }.padding().textFieldStyle(.roundedBorder)
                 
                 List(filmListeViewModel.filmler,id: \.film.imdbID){
@@ -33,11 +33,13 @@ struct FilmListeView: View {
                             Text(film.year)
                                 .foregroundStyle(.opacity(0.6))
                         }
-                    }
+                    
                 }
             }.navigationTitle("Film Kitabı")
-           
+            
         }
+    }
+        
     }
 }
 
