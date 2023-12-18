@@ -10,30 +10,32 @@ import SwiftUI
 struct FilmListeView: View {
     @ObservedObject var filmListeViewModel : FilmListeViewModel
     
+    @State var aranacakFilm = ""
     init() {
         self.filmListeViewModel = FilmListeViewModel()
-        self.filmListeViewModel.filmAramasiYap(filmIsmi: "pulp")
+       
     }
     
     var body: some View {
-        List(filmListeViewModel.filmler,id: \.film.imdbID){
-            film in
-            HStack {
-                Image("placeholder")
-                    .resizable()
-                    .frame(width: 50,height: 50)
-                
-                VStack (alignment:.leading) {
-                    Text(film.title)
-                        .font(.title3)
-                    Text(film.year)
-                        .foregroundStyle(.opacity(0.6))
-                }
-                
+        NavigationView {
+            
+            TextField("Aranacak Film",text: $aranacakFilm) {
+                self.filmListeViewModel.filmAramasiYap(filmIsmi: aranacakFilm)
             }
             
+            List(filmListeViewModel.filmler,id: \.film.imdbID){
+                film in
+                HStack {
+                    OzelImage(url: film.poster)
+                    VStack (alignment:.leading) {
+                        Text(film.title)
+                            .font(.title3)
+                        Text(film.year)
+                            .foregroundStyle(.opacity(0.6))
+                    }
+                }
+            }.navigationTitle("Film Kitabi")
         }
-       
     }
 }
 
